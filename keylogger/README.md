@@ -34,11 +34,17 @@ Este proyecto es un keylogger simple escrito en C. Un keylogger es una herramien
 	cd  keylogger-en-c
 ```
 
+## Notas:
+ Asegúrate de tener libxkbcommon instalada. Puedes instalarla con:
+```sh
+sudo apt-get install libxkbcommon-dev
+```
+
 ##  Compilar el keylogger:
-Abre la terminal de MinGW y navega al directorio del proyecto. Luego, ejecuta:
+Abre la terminal de MinGW y navega al directorio del proyecto, asegurándote de enlazar con libxkbcommon. Luego, ejecuta:
 
 ```sh
-	gcc  keylogger.c  -o  keylogger.exe  -luser32
+	gcc keylogger.c -o keylogger -lxkbcommon
 ```
 
 ##  Uso
