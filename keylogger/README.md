@@ -44,7 +44,7 @@ sudo apt-get install libxkbcommon-dev
 Abre la terminal de MinGW y navega al directorio del proyecto, asegurándote de enlazar con libxkbcommon. Luego, ejecuta:
 
 ```sh
-	gcc keylogger.c -o keylogger -lxkbcommon
+	gcc -o keylogger keylogger.c -I/usr/include/xkbcommon -L/usr/lib -lxkbcommon
 ```
 
 ##  Uso
