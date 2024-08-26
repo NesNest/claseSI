@@ -10,7 +10,7 @@
 #include <xkbcommon/xkbcommon.h>
 
 // Aquí se va a guardar la cadena  
-#define LOGFILEPATH "E:/Practicas/ClaseSI/Keylogger/keylogger.txt"
+#define LOGFILEPATH "/home/kali/clasesi/claseSI/keylogger//keylogger.txt"
 
 // Prototipo de la función getKeyName
 char* getKeyName(struct xkb_state* state, int code);
